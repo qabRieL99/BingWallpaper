@@ -33,7 +33,7 @@ namespace BingWallpaper
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Trying to fetch the wallpaper...\n\n");
+            Console.WriteLine("Trying to fetch the wallpaper.");
 
             //Folder to download the wallpaper
             string dwFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\Bing Wallpapers\\";
@@ -49,29 +49,22 @@ namespace BingWallpaper
             string fileURL = "https://www.bing.com" + baseUrl + "_1920x1080.jpg";
             string savedFile = dwFolder + baseUrl.Substring(11, baseUrl.Length - 11) + ".jpg";
 
-            //check if directory exists, if not create it
-            bool folderExists = Directory.Exists(dwFolder);
-            if (!folderExists)
-            {
-                Directory.CreateDirectory(dwFolder);
-            }
-
             //check if file already exists
             if (File.Exists(savedFile))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error:\nFile already exists. Press any key to continue.");
+                Console.Clear();
+                Console.WriteLine("File already exists." + Environment.NewLine + "Press any key to continue.");
                 Console.ReadKey();
             }
 
-            //if not, then download
+            //if not download
             else
             {
                 webClient.DownloadFile(fileURL, savedFile);
 
                 SetAsWallpaper(savedFile);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Download completed. The file name is: " + baseUrl.Substring(11, baseUrl.Length - 11) + Environment.NewLine + "Press any key to continue.");
+                Console.Clear();
+                Console.WriteLine("Download complete. The file name is: " + baseUrl.Substring(11, baseUrl.Length - 11) + Environment.NewLine + "Press any key to continue.");
                 Console.ReadKey();
             }
 
